@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import propTypes from 'prop-types';
 class PostList extends Component {
     render() {
         const {posts} = this.props;
@@ -22,7 +22,7 @@ class PostList extends Component {
                   <div className="post-actions">
                     <div className="post-like">
                       <img
-                        src="https://cdn-icons.flaticon.com/png/512/2961/premium/2961957.png?token=exp=1661010022~hmac=ce62f74324029c5d709462c25daf1c34"
+                        src="https://cdn-icons-png.flaticon.com/512/889/889140.png"
                         alt="likes-icons"
                       />
                       <span>{post.likes.length}</span>
@@ -55,5 +55,9 @@ class PostList extends Component {
         );
     }
 }
+
+PostList.propTypes = {
+    posts: propTypes.array.isRequired,
+};
 
 export default PostList;
