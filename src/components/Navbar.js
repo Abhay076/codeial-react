@@ -8,7 +8,7 @@ class Navbar extends React.Component {
     this.props.dispatch(logoutUser());
   };
   render() {
-    const {auth} = this.props;
+    const { auth } = this.props;
     return (
       <nav className="nav">
         <div className="left-div">
@@ -48,30 +48,29 @@ class Navbar extends React.Component {
         </div>
         <div className="right-nav">
           {auth.isLoggedin && (
-          <div className="user">
-            <img
-              src="https://cdn-icons-png.flaticon.com/512/3237/3237472.png"
-              alt="user-dp"
-              id="user-dp"
-            />
-            <span>{auth.user.name}</span>
-          </div>
+            <div className="user">
+              <Link to="/settings">
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/3237/3237472.png"
+                alt="user-dp"
+                id="user-dp"
+              />
+              </Link>
+              <span>{auth.user.name}</span>
+            </div>
           )}
           <div className="nav-links">
             <ul>
               {!auth.isLoggedin && (
-              <li>
-                <Link to="/login">Log in</Link>
-              </li>
+                <li>
+                  <Link to="/login">Log in</Link>
+                </li>
               )}
-              {auth.isLoggedin && 
-              <li onClick={this.logOut}>
-                 Log out
-              </li>}
+              {auth.isLoggedin && <li onClick={this.logOut}>Log out</li>}
               {!auth.isLoggedin && (
-              <li>
-                <Link to="/signup">Register</Link>
-              </li>
+                <li>
+                  <Link to="/signup">Register</Link>
+                </li>
               )}
             </ul>
           </div>
