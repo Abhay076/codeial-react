@@ -2,6 +2,8 @@ import { APIUrls } from '../helpers/urls';
 import {
   AUTHENTICATE_USER,
   CLEAR_AUTH_STATE,
+  EDIT_USER_FAILD,
+  EDIT_USER_SUCCESSFUL,
   LOGIN_FAILED,
   LOGIN_START,
   LOGIN_SUCCESS,
@@ -10,7 +12,7 @@ import {
   SIGNUP_START,
   SIGNUP_SUCCESS,
 } from './actionTypes';
-import { getFormBody } from '../helpers/utils';
+import { getAuthTokenFromLocalStorage, getFormBody } from '../helpers/utils';
 export function startLogin() {
   return {
     type: LOGIN_START,
@@ -44,7 +46,7 @@ export function login(email, password) {
         console.log('data', data);
         if (data.success) {
           // dispatch action to save user
-          localStorage.setItem('token',data.data.token);
+          localStorage.setItem('token', data.data.token);
           dispatch(LoginSuccess(data.data.user));
 
           return;
@@ -115,7 +117,54 @@ export function signupSuccessful(user) {
   };
 }
 export function clearAuthState() {
-  return{
+  return {
     type: CLEAR_AUTH_STATE,
-  }
+  };
+}
+
+export function editUserSuccessful(user) {
+  return {
+    type: EDIT_USER_SUCCESSFUL,
+    user,
+  };
+}
+
+export function editUserFaild(error) {
+  return {
+    type: EDIT_USER_FAILD,
+    error,
+  };
+}
+
+export function editUser(name, password, confirm_password, userId) {
+  return (dispatch) => {
+    const url = APIUrls.editProfile();
+
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        Authorization: `Bearer ${getAuthTokenFromLocalStorage()}`,
+      },
+      body: getFormBody({
+        name,
+        password,
+        confirm_password: confirm_password,
+        id: userId,
+      }),
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log('EDIT PROFILE data',data);
+      if(data.success) {
+        dispatch(editUserSuccessful(data.data.user));
+        if(data.data.token){
+          localStorage.setItem('token',data.data.token);
+        }
+        return;
+      }
+
+      dispatch(editUserFaild(data.message));
+    })
+  };
 }

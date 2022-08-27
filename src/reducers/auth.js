@@ -8,6 +8,8 @@ import {
   SIGNUP_SUCCESS,
   SIGNUP_FAILED,
   CLEAR_AUTH_STATE,
+  EDIT_USER_SUCCESSFUL,
+  EDIT_USER_FAILD,
 } from '../actions/actionTypes';
 
 const initialAuthState = {
@@ -23,7 +25,7 @@ export default function auth(state = initialAuthState, action) {
       return {
         ...state,
         error: null,
-      }
+      };
     case LOGIN_START:
     case SIGNUP_START:
       return {
@@ -47,7 +49,7 @@ export default function auth(state = initialAuthState, action) {
         error: action.error,
       };
     case AUTHENTICATE_USER:
-      return{
+      return {
         ...state,
         user: action.user,
         isLoggedin: true,
@@ -57,7 +59,18 @@ export default function auth(state = initialAuthState, action) {
         ...state,
         user: {},
         isLoggedin: false,
-      }
+      };
+    case EDIT_USER_SUCCESSFUL:
+      return {
+        ...state,
+        user: action.user,
+        error: false,
+      };
+    case EDIT_USER_FAILD:
+      return {
+        ...state,
+        error: action.error,
+      };
     default:
       return state;
   }

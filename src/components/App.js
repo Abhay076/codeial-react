@@ -116,6 +116,7 @@ import {
 } from './';
 import jwt from 'jwt-decode';
 import { authenticateUser } from '../actions/auth';
+import { getAuthTokenFromLocalStorage } from '../helpers/utils';
 // import { getAuthTokenFromLocalStorage } from '../helpers/utils';
 
 const PrivateRoute = (privateRouteProps) => {
@@ -133,8 +134,8 @@ function App(props) {
   useEffect(() => {
     props.dispatch(fetchPosts());
     console.log('component props', props);
-    const token = localStorage.getItem('token');
-    // const token = getAuthTokenFromLocalStorage();
+    // const token = localStorage.getItem('token');
+    const token = getAuthTokenFromLocalStorage();
     if (token) {
       const user = jwt(token);
 
