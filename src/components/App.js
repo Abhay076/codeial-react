@@ -113,6 +113,7 @@ import {
   Login,
   Signup,
   Settings,
+  UserProfile
 } from './';
 import jwt from 'jwt-decode';
 import { authenticateUser } from '../actions/auth';
@@ -173,6 +174,14 @@ function App(props) {
             </PrivateRoute>
           }
         />
+        <Route
+          path="/user/:userId"
+          element={
+            <PrivateRoute isLoggedin={auth.isLoggedin} path={location.pathname}>
+              <UserProfile />
+            </PrivateRoute>
+          }
+        />
         {/* <Route
           exact
           path="/user/:userId"
@@ -182,6 +191,7 @@ function App(props) {
             </PrivateRoute>
           }
         /> */}
+
         <Route path="*" element={<Page404 />} />
       </Routes>
     </div>
