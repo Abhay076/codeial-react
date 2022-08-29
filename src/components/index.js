@@ -7,4 +7,6 @@ import Login from './Login';
 import Signup from './Signup';
 import Settings from './Settings';
 import UserProfile from './UserProfile';
-export { PostList, Navbar, Home, Page404, Login, Signup, Settings, UserProfile };
+import FriendsList from './FriendsList';
+import FriendsListItem from './FriendsListItem';
+export { PostList, Navbar, Home, Page404, Login, Signup, Settings, UserProfile,FriendsListItem,FriendsList };

@@ -113,11 +113,13 @@ import {
   Login,
   Signup,
   Settings,
-  UserProfile
+  UserProfile,
 } from './';
 import jwt from 'jwt-decode';
 import { authenticateUser } from '../actions/auth';
 import { getAuthTokenFromLocalStorage } from '../helpers/utils';
+import { fetchUserFriends } from '../actions/friends';
+import friends from '../reducers/friends';
 // import { getAuthTokenFromLocalStorage } from '../helpers/utils';
 
 const PrivateRoute = (privateRouteProps) => {
@@ -149,15 +151,27 @@ function App(props) {
         })
       );
     }
+    props.dispatch(fetchUserFriends());
   }, []);
 
   return (
-    
     <div>
       <Navbar />
 
       <Routes>
-        <Route path="/" element={<Home posts={posts} />} />
+        <Route
+          exact
+          path="/"
+          element={
+            <PrivateRoute isLoggedin={auth.isLoggedin}>
+              <Home 
+              isLoggedin={auth.isLoggedin}
+              posts={posts}
+              friends={friends}
+              />
+            </PrivateRoute>
+          }
+        />
         {/* no need to render props can pass it to element directly as it gets automatically rendered */}
         {/* //something passed to home for that only props is there */}
         <Route path="/login" element={<Login />} />
@@ -195,8 +209,6 @@ function App(props) {
         <Route path="*" element={<Page404 />} />
       </Routes>
     </div>
-
-
   );
 }
 
