@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-
+import { createPost } from '../actions/posts';
+import {connect} from 'react-redux'
 class CreatePost extends Component {
   constructor(props) {
     super(props);
@@ -9,6 +10,7 @@ class CreatePost extends Component {
   }
   handleOnClick = () => {
     //dispatch action
+    this.props.dispatch(createPost(this.state.content));
   };
   handleChange = (e) => {
     //dispatch action
@@ -26,11 +28,13 @@ class CreatePost extends Component {
           onChange={this.handleChange}
         />
         <div>
-          <button id="add-post-btn" onClick={this.handleOnClick}></button>
+          <button id="add-post-btn" onClick={this.handleOnClick}>Add Post</button>
         </div>
       </div>
     );
   }
 }
 
-export default CreatePost;
+
+
+export default connect()(CreatePost);

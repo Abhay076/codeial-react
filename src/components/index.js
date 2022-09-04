@@ -9,4 +9,17 @@ import Settings from './Settings';
 import UserProfile from './UserProfile';
 import FriendsList from './FriendsList';
 import FriendsListItem from './FriendsListItem';
-export { PostList, Navbar, Home, Page404, Login, Signup, Settings, UserProfile,FriendsListItem,FriendsList };
+import CreatePost from './CreatePost';
+export {
+  PostList,
+  Navbar,
+  Home,
+  Page404,
+  Login,
+  Signup,
+  Settings,
+  UserProfile,
+  FriendsListItem,
+  FriendsList,
+  CreatePost,
+};
