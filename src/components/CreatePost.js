@@ -12,6 +12,7 @@ class CreatePost extends Component {
     //dispatch action
     this.props.dispatch(createPost(this.state.content));
   };
+  
   handleChange = (e) => {
     //dispatch action
     this.setState({
