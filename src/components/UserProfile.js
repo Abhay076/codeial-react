@@ -73,7 +73,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { APIUrls } from '../helpers/urls';
 import { getAuthTokenFromLocalStorage } from '../helpers/utils';
-import { addFriend} from '../actions/friends';
+import { addFriend,removeFriend} from '../actions/friends';
 import { fetchUserProfile } from '../actions/profile';
 import { connect } from 'react-redux';
 
@@ -149,7 +149,7 @@ const UserProfile = (props) => {
 
       setSuccess(true);
       setSuccessMessage('Removed friends successfully!');
-      //   props.dispatch(removeFriend(id));
+        props.dispatch(removeFriend(id));
     } else {
       setSuccess(null);
       setError(data.message);
