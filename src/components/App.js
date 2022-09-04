@@ -119,7 +119,8 @@ import jwt from 'jwt-decode';
 import { authenticateUser } from '../actions/auth';
 import { getAuthTokenFromLocalStorage } from '../helpers/utils';
 import { fetchUserFriends } from '../actions/friends';
-import friends from '../reducers/friends';
+// import friends from '../reducers/friends';
+
 // import { getAuthTokenFromLocalStorage } from '../helpers/utils';
 
 const PrivateRoute = (privateRouteProps) => {
@@ -130,7 +131,7 @@ const PrivateRoute = (privateRouteProps) => {
 
 function App(props) {
   console.log('this.props', props);
-
+   
   const { posts, auth } = props;
   const location = useLocation();
   console.log('location', location);
@@ -167,7 +168,7 @@ function App(props) {
               <Home 
               isLoggedin={auth.isLoggedin}
               posts={posts}
-              friends={friends}
+              // friends={friends}
               />
             </PrivateRoute>
           }
@@ -222,5 +223,7 @@ function mapStateToProps(state) {
 App.propTypes = {
   posts: PropTypes.array.isRequired,
 };
+
+
 
 export default connect(mapStateToProps)(App);

@@ -73,7 +73,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { APIUrls } from '../helpers/urls';
 import { getAuthTokenFromLocalStorage } from '../helpers/utils';
-// import { addFriend, removeFriend } from '../actions/friends';
+import { addFriend} from '../actions/friends';
 import { fetchUserProfile } from '../actions/profile';
 import { connect } from 'react-redux';
 
@@ -123,7 +123,7 @@ const UserProfile = (props) => {
     if (data.success) {
       setSuccess(true);
       setSuccessMessage('Added friend successfully!');
-      //   props.dispatch(addFriend(data.data.friendship));
+        props.dispatch(addFriend(data.data.friendship));
     } else {
       setSuccess(false);
       setError(data.message);
@@ -158,6 +158,7 @@ const UserProfile = (props) => {
   if (profile.inProgress) {
     return <h1>Loading!</h1>;
   }
+  // const isUserFriend = this.checkIfUserIsAFriend();
   return (
     <div className="settings">
       <div className="img-container">
