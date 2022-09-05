@@ -1,5 +1,5 @@
 import { APIUrls } from '../helpers/urls';
-import { ADD_POST, UPDATE_POSTS,ADD_COMMENT } from './actionTypes';
+import { ADD_POST, UPDATE_POSTS, ADD_COMMENT, UPDATE_POST_LIKE } from './actionTypes';
 import { getAuthTokenFromLocalStorage, getFormBody } from '../helpers/utils';
 export function fetchPosts() {
   return (dispatch) => {
@@ -29,27 +29,26 @@ export function addPost(post) {
   };
 }
 export function createPost(content) {
-  return(dispatch)=>{
+  return (dispatch) => {
     const url = APIUrls.createPost();
 
-    fetch(url,{
+    fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
         Authorization: `Bearer ${getAuthTokenFromLocalStorage()}`,
       },
-      body: getFormBody({content}),
+      body: getFormBody({ content }),
     })
-    .then(response=> response.json())
-    .then(data=> {
-      console.log('DATA',data);
-      if(data.success){
-        dispatch(addPost(data.data.post));
-      }
-    })
-  }
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('DATA', data);
+        if (data.success) {
+          dispatch(addPost(data.data.post));
+        }
+      });
+  };
 }
-
 
 //comment
 export function createComment(content, postId) {
@@ -78,4 +77,32 @@ export function addComment(comment, postId) {
     comment,
     postId,
   };
+}
+
+export function addLike(id, likeType, userId) {
+  return (dispatch) => {
+    const url = APIUrls.toggleLike();
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        Authorization: `Bearer ${getAuthTokenFromLocalStorage()}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('LIKE DATA', data);
+        if (data.success) {
+          dispatch(addLikeToStore(id, userId));
+        }
+      });
+  };
+}
+
+export function addLikeToStore(postId, userId){
+  return{
+    type: UPDATE_POST_LIKE,
+    postId,
+    userId
+  }
 }
