@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Comment } from './';
-import { createComment } from '../actions/posts';
+import { addLike, createComment, removeLike } from '../actions/posts';
 
 class Post extends Component {
   constructor(props) {
@@ -33,10 +33,20 @@ class Post extends Component {
     });
   };
 
+  handlePostLike = () => {
+    const { post, user } = this.props;
+    this.props.dispatch(addLike(post._id, 'Post', user._id));
+  };
+  handlePostDislike = () => {
+    const { post, user } = this.props;
+    this.props.dispatch(removeLike(post._id, 'Post', user._id));
+  };
+
   render() {
-    const { post } = this.props;
+    const { post, user } = this.props;
     const { comment } = this.state;
 
+    const isPostLikedByUser = post.likes.includes(user._id);
     return (
       <div className="post-wrapper" key={post._id}>
         <div className="post-header">
@@ -55,13 +65,22 @@ class Post extends Component {
           <div className="post-content">{post.content}</div>
 
           <div className="post-actions">
-            <div className="post-like">
-              <img
-                src="https://img.icons8.com/material-outlined/344/facebook-like--v1.png"
-                alt="likes-icon"
-              />
+            <button className="post-like no-btn" >
+              {isPostLikedByUser ? (
+                <img
+                  src="https://img.icons8.com/emoji/344/heart-suit.png"
+                  alt="red-heart"
+                  onClick={this.handlePostDislike}
+                />
+              ) : (
+                <img
+                  src="https://img.icons8.com/material-outlined/344/like--v1.png"
+                  alt="likes-icon"
+                  onClick={this.handlePostLike}
+                />
+              )}
               <span>{post.likes.length}</span>
-            </div>
+            </button>
 
             <div className="post-comments-icon">
               <img
@@ -95,4 +114,10 @@ Post.propTypes = {
   post: PropTypes.object.isRequired,
 };
 
-export default connect()(Post);
+function mapStateToProps({ auth }) {
+  return {
+    user: auth.user,
+  };
+}
+
+export default connect(mapStateToProps)(Post);

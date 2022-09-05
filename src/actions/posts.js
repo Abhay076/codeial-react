@@ -1,5 +1,5 @@
 import { APIUrls } from '../helpers/urls';
-import { ADD_POST, UPDATE_POSTS, ADD_COMMENT, UPDATE_POST_LIKE } from './actionTypes';
+import { ADD_POST, UPDATE_POSTS, ADD_COMMENT, UPDATE_POST_LIKE,REMOVE_POST_LIKE } from './actionTypes';
 import { getAuthTokenFromLocalStorage, getFormBody } from '../helpers/utils';
 export function fetchPosts() {
   return (dispatch) => {
@@ -81,7 +81,7 @@ export function addComment(comment, postId) {
 
 export function addLike(id, likeType, userId) {
   return (dispatch) => {
-    const url = APIUrls.toggleLike();
+    const url = APIUrls.toggleLike(id,likeType);
     fetch(url, {
       method: 'POST',
       headers: {
@@ -102,6 +102,14 @@ export function addLike(id, likeType, userId) {
 export function addLikeToStore(postId, userId){
   return{
     type: UPDATE_POST_LIKE,
+    postId,
+    userId
+  }
+}
+
+export function removeLike(postId, userId){
+  return{
+    type: REMOVE_POST_LIKE,
     postId,
     userId
   }
