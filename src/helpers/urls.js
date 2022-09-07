@@ -3,7 +3,7 @@ export const APIUrls = {
   login: () => `${API_ROOT}/users/login`,
   signup: () => `${API_ROOT}/users/signup`,
   editProfile: () => `${API_ROOT}/users/edit`,
-  fetchPosts: (page = 1, limit = 5) =>
+  fetchPosts: (page = 1, limit = 3) =>
     `${API_ROOT}/posts?page=${page}&limit=${limit}`,
   userProfile: (userId) => `${API_ROOT}/users/${userId}`,
   userFriends: () => `${API_ROOT}/friendship/fetch_user_friends`,
@@ -16,4 +16,5 @@ export const APIUrls = {
   toggleLike: (id, likeType) =>
     `${API_ROOT}/likes/toggle?likeable_id=${id}&likeable_type=${likeType}`,
   userSearch: (searchText) => `${API_ROOT}/users/search?text=${searchText}`,
+
 };

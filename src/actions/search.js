@@ -6,6 +6,7 @@ export function searchUsers(searchText) {
     const url = APIUrls.userSearch(searchText);
     fetch(url, {
       headers: {
+        mode: 'no-cors',
         'Content-Type': 'application/x-www-form-urlencoded',
         Authorization: `Bearer ${getAuthTokenFromLocalStorage()}`,
       },
@@ -18,13 +19,15 @@ export function searchUsers(searchText) {
         } else {
           dispatch(searchResultsSuccess([]));
         }
-      });
+      })
+      .catch((err)=>{dispatch(searchResultsSuccess([]))})
   };
 }
 
 export function searchResultsSuccess(user) {
+  console.log('uSers',user)
   return {
-    tyep: FETCH_SEARCH_RESULTS_SUCCESS,
+    type: FETCH_SEARCH_RESULTS_SUCCESS,
     user,
   };
 }

@@ -9,7 +9,7 @@ export default function search(state = initialSearchState, action) {
     case FETCH_SEARCH_RESULTS_SUCCESS:
       return {
         ...state,
-        results: action.users,
+        results: action.user,
       };
     default:
       return state;
