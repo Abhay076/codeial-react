@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { PostList, FriendsList } from './';
+import { PostList, FriendsList, Chat } from './';
 import { connect } from 'react-redux';
 // import { fetchFriends } from '../actions/friends';
 class Home extends Component {
@@ -12,6 +12,7 @@ class Home extends Component {
         <PostList posts={posts} />
 
        { isLoggedin && <FriendsList friends={friends} /> }
+       {isLoggedin && <Chat/>}
       </div>
     );
   }

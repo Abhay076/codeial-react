@@ -12,6 +12,7 @@ import FriendsListItem from './FriendsListItem';
 import CreatePost from './CreatePost';
 import Post from './Post';
 import Comment from './Comment';
+import Chat from './Chat';
 export {
   PostList,
   Navbar,
@@ -25,5 +26,6 @@ export {
   FriendsList,
   CreatePost,
   Post,
-  Comment
+  Comment,
+  Chat
 };
